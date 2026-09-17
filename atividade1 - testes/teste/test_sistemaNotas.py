@@ -1,6 +1,9 @@
 import pytest
 import sys
-sys.path.insert(0, '../funcional')
+import os
+
+# Adiciona o diretório funcional ao path
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'funcional'))
 
 from sistemaNotas import validar_nota, calcular_media, obter_situacao
 
