@@ -231,7 +231,7 @@ def test_frete_gratis_tabela_decisao(valor_compra, cliente_premium, peso, espera
     (200, True, 30, True),
     (210, True, 31, False),
     (200, False, 30, False),
-    (210, False, 31, False),
+    (199, False, 31, False),
     
 ], ids=[
     "R1-CompraOK_PremiumSim_PesoOK",
