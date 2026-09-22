@@ -5,8 +5,7 @@ import os
 # Adiciona o diretório funcional ao path
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'funcional'))
 
-from IndiceMassaCorporal import calcular_imc, categorizar_imc, classificar_pessoa, frete_gratis
-
+from IndiceMassaCorporal import calcular_imc, categorizar_imc, classificar_pessoa, tem_frete_gratis, classificar_vento
 
 # EX1: Escreva ao menos 4 testes, um representante de cada classe válida (Implemente calcular_imc(peso, altura), categorizar_imc(imc) eclassificar_pessoa(peso, altura).)
 
@@ -68,7 +67,6 @@ def test_classificar_pessoa_parametrizado(peso, altura, categoria_esperada):
     assert isinstance(resultado, dict)
     assert 'imc' in resultado
     assert 'categoria' in resultado
-
 
 # EX2: Escreva um teste parametrizado de categorizar_imc cobrindo os valores-limite das três fronteiras, com ids descritivos (fronteiras adjacentes podem compartilhar pontos de teste, então menos de 9 casos distintos já cobrem as seis posições limite)
 
@@ -136,14 +134,6 @@ Para cada fronteira testamos: ANTES, EXATO e DEPOIS
   EXATO:  20.0, 40.0, 60.0 (limite exato, primeiro valor da nova classe)
   DEPOIS: 20.1, 40.1, 60.1 (primeiro valor claramente na nova classe)
 """
-
-import pytest
-import sys
-import os
-
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'funcional'))
-from IndiceMassaCorporal import classificar_vento
-
 
 def test_classe_1_calmo():
     assert classificar_vento(10) == "calmo"
@@ -233,6 +223,23 @@ Interpretação:
     "R8-CompraBaixa_PremiumNao_PesoAlto",
 ])
 def test_frete_gratis_tabela_decisao(valor_compra, cliente_premium, peso, esperado):
-    resultado = frete_gratis(valor_compra, cliente_premium, peso)
+    resultado = tem_frete_gratis(valor_compra, cliente_premium, peso)
+    assert resultado == esperado
+
+#ex4 considerando tabela reduzida
+@pytest.mark.parametrize("valor_compra,cliente_premium,peso,esperado", [
+    (200, True, 30, True),
+    (210, True, 31, False),
+    (200, False, 30, False),
+    (210, False, 31, False),
+    
+], ids=[
+    "R1-CompraOK_PremiumSim_PesoOK",
+    "R2-CompraOK_PremiumSim_PesoAlto",
+    "R3.1-CompraOK_PremiumNao_PesoOK",
+    "R4.1-CompraOK_PremiumNao_PesoAlto",
+])
+def test_frete_gratis_tabela_decisao_reduzida(valor_compra, cliente_premium, peso, esperado):
+    resultado = tem_frete_gratis(valor_compra, cliente_premium, peso)
     assert resultado == esperado
 

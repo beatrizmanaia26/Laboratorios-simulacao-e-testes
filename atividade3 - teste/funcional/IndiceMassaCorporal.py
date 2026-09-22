@@ -88,7 +88,6 @@ def classificar_vento(velocidade):
     ]
     return classificar_por_feixas(velocidade, faixas_vento)
 
-    
 #ex4
 
 ''''
@@ -105,7 +104,7 @@ b) Reduza a tabela por don’t care e escreva a versão reduzida,
 justificando cada condição que deixou de importar em cada regra.
 
 '''
-def frete_gratis(valor_compra, cliente_premium, peso):
+def tem_frete_gratis(valor_compra, cliente_premium, peso):
     return valor_compra >= 200 and cliente_premium and peso <= 30
 
 '''
@@ -127,7 +126,7 @@ COMPRA >=200           |S  S. S. N.
 ASSINATURA PREMIUM     |S  S. N. X.
 PESO PEDIDO <=30KG     |S. N. X. X.
 LIBERA FRETE 00,0.     |X 
-NAO LIBERA FRETE 0,00. |.  X. X. X  X. 
+NAO LIBERA FRETE 0,00. |.  X. X. X  
 
 para ter frete gratis todas as 3 condições precisam ser verdadeiras, ou seja, na primeira tabela: 
 1-se a primeira condição "N", nada mais importa, por isso removi de R6 a diante e coloquei "X" abaixo do R5 onde a primeira condição é "N" 
